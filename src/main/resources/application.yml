@@ -1,0 +1,33 @@
+micronaut:
+  server:
+    port: 8082
+  application:
+    name: toyEngine
+  cors:
+    enabled: true
+cassandra:
+  default:
+    basic:
+      contact-points:
+        - 127.0.0.1:9042
+      session-keyspace: toy
+      load-balancing-policy:
+        local-datacenter: datacenter1
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
+    details-visible: ANONYMOUS
+
+nats.addresses:
+  - nats://localhost:4222
+
+
+#Para rodar o nats use esse dois trechos para ter uma imagem do docker
+# docker pull nats
+# docker run --name toyScylla  -p 9042:9042 --hostname local -d scylladb/scylla
+# docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats
+# docker exec -it toyScylla  cqlsh
+# CREATE KEYSPACE toy WITH REPLICATION ={ 'class' : 'SimpleStrategy', 'replication_factor' : 1}  AND durable_writes = true;
+# use toy;
+# CREATE TABLE toy (id UUID, name TEXT, price DECIMAL, description TEXT,PRIMARY KEY((id)));
