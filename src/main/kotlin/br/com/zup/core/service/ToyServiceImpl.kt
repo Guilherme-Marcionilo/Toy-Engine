@@ -12,11 +12,14 @@ import javax.inject.Singleton
 @Singleton
 class ToyServiceImpl(private val toyDatabasePort: ToyDatabasePort): ToyServicePort {
 
-    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val LOG = LoggerFactory.getLogger(this::class.java)
 
     override fun findAll(): List<ToyDto> {
+        LOG.info("Listando todos os lanches - Core | Service")
         val listToy = toyDatabasePort.findAll()
+
         val toyDtos = mutableListOf<ToyDto>()
+
         for (i: ToyEntity in listToy) {
             toyDtos.add(ToyConverter.toyEntitytoToyDto(i))
         }
